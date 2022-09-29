@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Image Viewer</title>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Extensions Library (this will be hosted on a CDN eventually) -->
+    <script src="../../lib/tableau.extensions.1.latest.js"></script>
+
+    <!-- Our extension's code -->
+    <script src="./imageViewer.js"></script>
+    <script>
+      function getImage() {
+        var n = document.getElementById("keyInput").value;
+        // http://localhost:3000/fileUpload?url=https://www.kindacode.com/wp-content/uploads/2021/01/test.jpg&key=mOYna0HFMgMg3tc
+        var base_url =
+          "http://localhost:3000/fileUpload?key=mOYna0HFMgMg3tc&url=" + n;
+        fetch(base_url)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            console.log("data = ", data);
+            window.location.href = "http://localhost:3000/fileLink?url=" + data;
+
+            // window.location.href = data;
+          })
+          .catch(function (err) {
+            console.log("err = ", err);
+          });
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Existing Settings Table -->
+      <div id="settings">
+        <h4>Please insert S3 image link</h4>
+      </div>
+
+      <!-- New Settings Submission Form -->
+      <div id="newSetting">
+        <hr />
+        <form id="settingForm">
+          <div class="form-group">
+            <input
+              id="keyInput"
+              type="text"
+              class="form-control"
+              placeholder="Image s3 url"
+            />
+          </div>
+          <button
+            id="save"
+            type="button"
+            class="btn btn-primary"
+            onClick="getImage()"
+          >
+            Load Image
+          </button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
