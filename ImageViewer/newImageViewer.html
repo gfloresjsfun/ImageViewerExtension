@@ -27,40 +27,23 @@
         // http://localhost:3000/fileUpload?url=https://www.kindacode.com/wp-content/uploads/2021/01/test.jpg&key=mOYna0HFMgMg3tc
         var base_url =
           "http://localhost:3000/fileUpload?key=mOYna0HFMgMg3tc&url=" + n;
-        fetch(base_url)
-          .then(function (response) {
-            return response.json();
-          })
-          .then(function (data) {
-            console.log("data = ", data);
-            window.location.href = "http://localhost:3000/fileLink?url=" + data;
+        var link =
+          "http://localhost:3000/imageLink?url=https://www.kindacode.com/wp-content/uploads/2021/01/test.jpg&key=mOYna0HFMgMg3tc";
+        window.location.href = link;
+        // fetch(base_url)
+        //   .then(function (response) {
+        //     return response.json();
+        //   })
+        //   .then(function (data) {
+        //     console.log("data = ", data);
+        //     window.location.href = "http://localhost:3000/fileLink?url=" + data;
 
-            // window.location.href = data;
-          })
-          .catch(function (err) {
-            console.log("err = ", err);
-          });
+        //     // window.location.href = data;
+        //   })
+        //   .catch(function (err) {
+        //     console.log("err = ", err);
+        //   });
       }
-    </script>
-    <script>
-      "use strict";
-
-      // Wrap everything in an anonymous function to avoid polluting the global namespace
-      (function () {
-        $(document).ready(function () {
-          tableau.extensions.initializeAsync().then(
-            function () {
-              console.log("called here");
-              const parameters = await tableau.extensions.dashboardContent.dashboard.getParametersAsync();
-            console.log("parameters = ",parameters)
-            },
-            function (err) {
-              // Something went wrong in initialization
-              console.log("Error while Initializing: " + err.toString());
-            }
-          );
-        });
-      })();
     </script>
   </head>
   <body>
