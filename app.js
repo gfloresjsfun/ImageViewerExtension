@@ -45,6 +45,41 @@ app.get("/fileLink", async (req,res)=>{
     console.log("req.query.url = ",req.query.url);
 
     res.sendFile(__dirname+req.query.url);
+    // fs.readFile(
+    //   __dirname + "/ImageViewer/imageLoad.html",
+    //   "utf8",
+    //   (err, text) => {
+    //     res.send(text);
+    //   }
+    // );
+
+})
+
+app.get("/imageLink", middleware.authenticated, async (req,res)=>{
+
+  fileDownload
+  .downloadFile(req.query.url, "images")
+  .then((resp) => {
+    console.log("resp = ", resp);
+    //   res.sendFile(resp);
+    let imagePath= resp.replace(__dirname,'');
+    console.log("imagePath = ",imagePath)
+
+    // res.json(imagePath);
+    let newerPath= `http://localhost:3000/fileLink?url=${imagePath}`
+    res.send(`
+    <div>
+      <img src="${newerPath} "style="
+      width: 100%;
+      height: auto;
+    " />
+    </div>
+  `)
+  })
+  .catch((err) => {
+    res.status(400).json({ error: err });
+  });
+
 })
 
 app.listen(port, () => {
