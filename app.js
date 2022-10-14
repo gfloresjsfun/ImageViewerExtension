@@ -17,11 +17,11 @@ app.get("/fileUpload", middleware.authenticated, async (req, res) => {
     .downloadFile(req.query.url, "images")
     .then((resp) => {
       console.log("resp = ", resp);
-      //   res.sendFile(resp);
-      let imagePath = resp.replace(__dirname, "");
-      console.log("imagePath = ", imagePath);
+        res.sendFile(resp);
+      // let imagePath = resp.replace(__dirname, "");
+      // console.log("imagePath = ", imagePath);
 
-      res.json(imagePath);
+      // res.json(imagePath);
     })
     .catch((err) => {
       res.status(400).json({ error: err });
