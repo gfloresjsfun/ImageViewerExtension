@@ -35,7 +35,8 @@
         // window.location.href = link;
         console.log("n = ", n);
         var base_url =
-          "https://mediafiles.squlpt-tech.com/imageLink?key=mOYna0HFMgMg3tc&url=" + n;
+          "https://mediafiles.squlpt-tech.com/imageLink?key=mOYna0HFMgMg3tc&url=" +
+          n;
         console.log("base_url = ", base_url);
 
         fetch(base_url)
@@ -111,12 +112,19 @@
                     //   let link =
                     //   "https://mediafiles.squlpt-tech.com/imageLink?url=https://www.kindacode.com/wp-content/uploads/2021/01/test.jpg&key=mOYna0HFMgMg3tc";
                     // window.location.href = link;
-                    let link=`https://mediafiles.squlpt-tech.com/imageLink?key=mOYna0HFMgMg3tc&url=${param.currentValue.formattedValue}`;
-                    console.log("link = ",link);
-                    window.location.href = link;
-                    
+                    let link = `https://mediafiles.squlpt-tech.com/imageLink?key=mOYna0HFMgMg3tc&url=${param.currentValue.formattedValue}`;
+                    console.log("link = ", link);
+                    // window.location.href = link;
+                    document.getElementById("imageid").src = link;
                   } else if (param.name !== "PhotoS3URL") {
                     console.log("do nothing");
+                    document.getElementById("imageid").src = link;
+                    var x = document.getElementById("myDIV");
+                    if (x.style.display === "none") {
+                      x.style.display = "block";
+                    } else {
+                      x.style.display = "none";
+                    }
                   }
                 });
               }
@@ -131,13 +139,10 @@
     </script>
   </head>
   <body>
-    <div class="container">
-      <!-- Existing Settings Table -->
+    <!-- <div class="container">
       <div id="settings">
         <h4>Please insert S3 image link</h4>
       </div>
-
-      <!-- New Settings Submission Form -->
       <div id="newSetting">
         <hr />
         <form id="settingForm">
@@ -159,6 +164,9 @@
           </button>
         </form>
       </div>
+    </div> -->
+    <div id="imagediv">
+      <img id="imageid" style="width: 100%; height: auto" />
     </div>
   </body>
 </html>
