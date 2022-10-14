@@ -55,6 +55,7 @@ app.get("/fileLink", async (req, res) => {
 });
 
 app.get("/imageLink", middleware.authenticated, async (req, res) => {
+  console.log("image link called ",req.query.url);
   fileDownload
     .downloadFile(req.query.url, "images")
     .then((resp) => {
@@ -64,13 +65,15 @@ app.get("/imageLink", middleware.authenticated, async (req, res) => {
       console.log("imagePath = ", imagePath);
 
       // res.json(imagePath);
-      let newerPath = `http://localhost:3000/fileLink?url=${imagePath}`;
-      const validImageTypes = ["gif", "jpeg", "png" , "jpg"];
-      if (!newerPath.includes(validImageTypes)) {
+      let newerPath = `https://mediafiles.squlpt-tech.com/fileLink?url=${imagePath}`;
+      const validImageTypes = [".gif", ".jpeg", ".png" , ".jpg"];
+      // let hasorders = validImageTypes.filter(el => newerPath.has(el));
+      // console.log("hasorders = ",hasorders);
+      if (!isImage(imagePath)) {
         res.redirect(newerPath);
       } else {
         res.send(`
-      <div>
+      <div >
         <img src="${newerPath} "style="
         width: 100%;
         height: auto;
@@ -83,6 +86,10 @@ app.get("/imageLink", middleware.authenticated, async (req, res) => {
       res.status(400).json({ error: err });
     });
 });
+
+function isImage(url) {
+  return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
+}
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
