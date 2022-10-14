@@ -33,11 +33,11 @@
         var link =
           "https://mediafiles.squlpt-tech.com/imageLink?url=https://www.kindacode.com/wp-content/uploads/2021/01/test.jpg&key=mOYna0HFMgMg3tc";
         // window.location.href = link;
-        console.log("n = ", n);
+        // console.log("n = ", n);
         var base_url =
           "https://mediafiles.squlpt-tech.com/imageLink?key=mOYna0HFMgMg3tc&url=" +
           n;
-        console.log("base_url = ", base_url);
+        // console.log("base_url = ", base_url);
 
         fetch(base_url)
           .then(function (response) {
@@ -72,38 +72,31 @@
                 this._$ = _$;
               }
               async initialize() {
-                console.log("Waiting for DOM ready");
+                // console.log("Waiting for DOM ready");
                 await this._$.ready;
-                console.log("Initializing extension API");
+                // console.log("Initializing extension API");
                 await tableau.extensions.initializeAsync();
                 const parameters =
                   await tableau.extensions.dashboardContent.dashboard.getParametersAsync();
-                console.log("parameters = ", parameters);
 
                 parameters.forEach(function (p) {
-                  console.log("p = ", p);
                   p.addEventListener(
                     tableau.TableauEventType.ParameterChanged,
                     (event) => {
-                      console.log("event here called = ", event);
                       this.onParameterChange(event);
-                      // var link =
-                      //   "https://mediafiles.squlpt-tech.com/imageLink?url=https://www.kindacode.com/wp-content/uploads/2021/01/test.jpg&key=mOYna0HFMgMg3tc";
-                      // window.location.href = link;
                     }
                   );
-                  // this.parameterRow(p).appendTo(tableBody);
                 }, this);
               }
               onParameterChange(parameterChangeEvent) {
                 console.log("parameterChangeEvent = ", parameterChangeEvent);
                 parameterChangeEvent.getParameterAsync().then(function (param) {
-                  console.log("p.name = ", param.name);
-                  console.log("p.dataType = ", param.dataType);
-                  console.log(
-                    "p.currentValue.formattedValue = ",
-                    param.currentValue.formattedValue
-                  );
+                  // console.log("p.name = ", param.name);
+                  // console.log("p.dataType = ", param.dataType);
+                  // console.log(
+                  //   "p.currentValue.formattedValue = ",
+                  //   param.currentValue.formattedValue
+                  // );
 
                   if (
                     param.name === "PhotoS3URL" &&
@@ -117,11 +110,11 @@
                     //   "https://mediafiles.squlpt-tech.com/imageLink?url=https://www.kindacode.com/wp-content/uploads/2021/01/test.jpg&key=mOYna0HFMgMg3tc";
                     // window.location.href = link;
                     let link = `https://mediafiles.squlpt-tech.com/fileUpload?key=mOYna0HFMgMg3tc&url=${param.currentValue.formattedValue}`;
-                    console.log("link = ", link);
+                    // console.log("link = ", link);
                     // window.location.href = link;
                     document.getElementById("imageid").src = link;
                   } else if (param.name !== "PhotoS3URL") {
-                    console.log("do nothing");
+                    // console.log("do nothing");
                     document.getElementById("imageid").src = link;
                     // var x = document.getElementById("myDIV");
                     // if (x.style.display === "none") {
