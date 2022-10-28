@@ -4,8 +4,10 @@ const port = 3000;
 const cors = require("cors");
 const fileDownload = require("./fileupload");
 const middleware = require("./middleware");
-const fs = require("fs");
+const helper = require("./helper");
+const cron = require("./cron");
 
+const fs = require("fs");
 app.use(cors());
 
 app.get("/", (req, res) => {
@@ -66,6 +68,8 @@ app.get("/imageLink", middleware.authenticated, async (req, res) => {
 
       // res.json(imagePath);
       let newerPath = `https://mediafiles.squlpt-tech.com/fileLink?url=${imagePath}`;
+      // let newerPath = `http://localhost:3000/fileLink?url=${imagePath}`;
+
       const validImageTypes = [".gif", ".jpeg", ".png" , ".jpg"];
       // let hasorders = validImageTypes.filter(el => newerPath.has(el));
       // console.log("hasorders = ",hasorders);
@@ -73,8 +77,8 @@ app.get("/imageLink", middleware.authenticated, async (req, res) => {
         res.redirect(newerPath);
       } else {
         res.send(`
-      <div >
-        <img src="${newerPath} "style="
+      <div oncontextmenu="return false;">
+        <img src="${newerPath}" style="
         width: 100%;
         height: auto;
       " />

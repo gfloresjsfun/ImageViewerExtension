@@ -11,4 +11,20 @@ function maketoken(length) {
 
 console.log("maketoken(15) = ",maketoken(15));
 
-module.exports = {maketoken};
+function deleteFiles(){
+  const fs = require('fs');
+  
+  var folder = './images/';
+     
+  fs.readdir(folder, (err, files) => {
+    if (err) throw err;
+    
+    for (const file of files) {
+        console.log(file + ' : File Deleted Successfully.');
+        fs.unlinkSync(folder+file);
+    }
+    
+  });
+}
+
+module.exports = {maketoken,deleteFiles};
