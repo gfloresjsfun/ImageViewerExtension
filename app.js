@@ -92,7 +92,7 @@ app.get("/imageLink", middleware.authenticated, async (req, res) => {
             // let newerPath = `http://localhost:3000/fileLink?url=${outputPath}`;
             let newerPath = `https://mediafiles.squlpt-tech.com/fileLink?url=${imagePath}`;
             res.send(`
-            <div>
+            <div oncontextmenu="return false;">
               <img src="${newerPath}" style="
               width: 100%;
               height: auto;
