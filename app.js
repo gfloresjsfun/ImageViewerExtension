@@ -6,6 +6,7 @@ const fileDownload = require("./fileupload");
 const middleware = require("./middleware");
 const helper = require("./helper");
 const cron = require("./cron");
+const compress_images = require("compress-images");
 
 const fs = require("fs");
 app.use(cors());
@@ -18,12 +19,7 @@ app.get("/fileUpload", middleware.authenticated, async (req, res) => {
   fileDownload
     .downloadFile(req.query.url, "images")
     .then((resp) => {
-      console.log("resp = ", resp);
-        res.sendFile(resp);
-      // let imagePath = resp.replace(__dirname, "");
-      // console.log("imagePath = ", imagePath);
-
-      // res.json(imagePath);
+      res.sendFile(resp);
     })
     .catch((err) => {
       res.status(400).json({ error: err });
@@ -57,33 +53,54 @@ app.get("/fileLink", async (req, res) => {
 });
 
 app.get("/imageLink", middleware.authenticated, async (req, res) => {
-  console.log("image link called ",req.query.url);
+  console.log("image link called ", req.query.url);
   fileDownload
     .downloadFile(req.query.url, "images")
     .then((resp) => {
-      console.log("resp = ", resp);
-      //   res.sendFile(resp);
       let imagePath = resp.replace(__dirname, "");
-      console.log("imagePath = ", imagePath);
-
       // res.json(imagePath);
       let newerPath = `https://mediafiles.squlpt-tech.com/fileLink?url=${imagePath}`;
       // let newerPath = `http://localhost:3000/fileLink?url=${imagePath}`;
-
-      const validImageTypes = [".gif", ".jpeg", ".png" , ".jpg"];
-      // let hasorders = validImageTypes.filter(el => newerPath.has(el));
-      // console.log("hasorders = ",hasorders);
       if (!isImage(imagePath)) {
         res.redirect(newerPath);
       } else {
-        res.send(`
-      <div oncontextmenu="return false;">
-        <img src="${newerPath}" style="
-        width: 100%;
-        height: auto;
-      " />
-      </div>
-    `);
+        let newSubPath = "/images/" + helper.maketoken(10);
+        let newPath = __dirname + newSubPath;
+        compress_images(
+          resp,
+          newPath,
+          { compress_force: false, statistic: true, autoupdate: true },
+          false,
+          { jpg: { engine: "mozjpeg", command: ["-quality", "60"] } },
+          { png: { engine: "pngquant", command: ["--quality=20-50", "-o"] } },
+          { svg: { engine: "svgo", command: "--multipass" } },
+          {
+            gif: {
+              engine: "gifsicle",
+              command: ["--colors", "64", "--use-col=web"],
+            },
+          },
+          function (error, completed, statistic) {
+            console.log("-------------");
+            console.log(error);
+            console.log(completed);
+            console.log(statistic);
+            console.log("-------------");
+            // res.redirect(newerPath);
+            let outputPath = statistic.path_out_new.split("images/");
+            outputPath = "/images/" + outputPath[1];
+            // let newerPath = `http://localhost:3000/fileLink?url=${outputPath}`;
+            let newerPath = `https://mediafiles.squlpt-tech.com/fileLink?url=${imagePath}`;
+            res.send(`
+            <div>
+              <img src="${newerPath}" style="
+              width: 100%;
+              height: auto;
+            " />
+            </div>
+          `);
+          }
+        );
       }
     })
     .catch((err) => {
