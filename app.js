@@ -19,7 +19,35 @@ app.get("/fileUpload", middleware.authenticated, async (req, res) => {
   fileDownload
     .downloadFile(req.query.url, "images")
     .then((resp) => {
-      res.sendFile(resp);
+      console.log("resp = ",resp);
+      // res.sendFile(resp);
+      let newSubPath = "/images/" + helper.maketoken(10);
+      let newPath = __dirname + newSubPath;
+
+      compress_images(
+        resp,
+        newPath,
+        { compress_force: false, statistic: true, autoupdate: true },
+        false,
+        { jpg: { engine: "mozjpeg", command: ["-quality", "60"] } },
+        { png: { engine: "pngquant", command: ["--quality=20-50", "-o"] } },
+        { svg: { engine: "svgo", command: "--multipass" } },
+        {
+          gif: {
+            engine: "gifsicle",
+            command: ["--colors", "64", "--use-col=web"],
+          },
+        },
+        function (error, completed, statistic) {
+          console.log("-------------");
+          console.log(error);
+          console.log(completed);
+          console.log(statistic);
+          console.log("-------------");
+          res.sendFile(statistic.path_out_new);
+        }
+      );
+
     })
     .catch((err) => {
       res.status(400).json({ error: err });
