@@ -19,7 +19,7 @@ app.get("/fileUpload", middleware.authenticated, async (req, res) => {
   fileDownload
     .downloadFile(req.query.url, "images")
     .then((resp) => {
-      console.log("resp = ",resp);
+      console.log("resp = ", resp);
       // res.sendFile(resp);
       let newSubPath = "/images/" + helper.maketoken(10);
       let newPath = __dirname + newSubPath;
@@ -44,10 +44,13 @@ app.get("/fileUpload", middleware.authenticated, async (req, res) => {
           console.log(completed);
           console.log(statistic);
           console.log("-------------");
-          res.sendFile(statistic.path_out_new);
+          if (error) {
+            res.sendFile(resp);
+          } else {
+            res.sendFile(statistic.path_out_new);
+          }
         }
       );
-
     })
     .catch((err) => {
       res.status(400).json({ error: err });
