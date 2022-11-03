@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Image Viewer</title>
+    <title>Pdf Viewer</title>
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -53,11 +53,13 @@
                   console.log("param = ", param);
                   console.log("param.name = ", param.name);
                   if (
-                    param.name === "PhotoS3URL" &&
+                    param.name === "MedHistS3URL" &&
                     param.currentValue.formattedValue
                   ) {
-                    let link = `https://mediafiles.squlpt-tech.com/fileUpload?key=mOYna0HFMgMg3tc&url=${param.currentValue.formattedValue}`;
-                    document.getElementById("imageid").src = link;
+                    let link = `https://mediafiles.squlpt-tech.com/pdfUpload?key=mOYna0HFMgMg3tc&url=${param.currentValue.formattedValue}`;
+                    document.getElementById("pdfid").src =
+                      link + "#toolbar=0&navpanes=0";
+
                   }
                 });
               }
@@ -72,8 +74,8 @@
     </script>
   </head>
   <body>
-    <div id="imagediv" oncontextmenu="return false;">
-      <img id="imageid" style="width: 100%; height: auto" />
+    <div id="pdfdiv" oncontextmenu="return false;">
+      <iframe id="pdfid" frameborder="0" width="100%" height="800px"></iframe>
     </div>
   </body>
 </html>

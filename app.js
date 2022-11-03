@@ -148,6 +148,33 @@ function isImage(url) {
   return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
 }
 
+app.get("/pdfViewer", async (req, res) => {
+  //   res.sendFile('ImageViewer/imageViewer.html');
+  //   res.sendFile('ImageViewer/imageViewer.html', {root: __dirname });
+  //   res.render('ImageViewer/imageViewer.html', {root: __dirname });
+
+  fs.readFile(
+    __dirname + "/ImageViewer/pdfViewer.html",
+    "utf8",
+    (err, text) => {
+      res.send(text);
+    }
+  );
+});
+
+app.get("/pdfUpload", middleware.authenticated, async (req, res) => {
+  fileDownload
+    .downloadFile(req.query.url, "images")
+    .then((resp) => {
+      console.log("resp = ", resp);
+        // It is a pdf
+        res.sendFile(resp);
+    })
+    .catch((err) => {
+      res.status(400).json({ error: err });
+    });
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
