@@ -19,39 +19,19 @@
     <!-- Extensions Library (this will be hosted on a CDN eventually) -->
     <script src="https://cdn.jsdelivr.net/gh/tableau/extensions-api/lib/tableau.extensions.1.latest.js"></script>
 
-    <!-- Our extension's code -->
-    <!-- <script src="./imageViewer.js"></script> -->
-    <script src="./imageViewer.js"></script>
-    <!-- <script src="./parameters.js"></script> -->
-
     <script>
       function getImage() {
         var n = document.getElementById("keyInput").value;
-        // https://mediafiles.squlpt-tech.com/fileUpload?url=https://www.kindacode.com/wp-content/uploads/2021/01/test.jpg&key=mOYna0HFMgMg3tc
-        // var base_url =
-        //   "https://mediafiles.squlpt-tech.com/fileUpload?key=mOYna0HFMgMg3tc&url=" + n;
         var link =
           "https://mediafiles.squlpt-tech.com/imageLink?url=https://www.kindacode.com/wp-content/uploads/2021/01/test.jpg&key=mOYna0HFMgMg3tc";
-        // window.location.href = link;
-        // console.log("n = ", n);
         var base_url =
           "https://mediafiles.squlpt-tech.com/imageLink?key=mOYna0HFMgMg3tc&url=" +
           n;
-        // console.log("base_url = ", base_url);
 
         fetch(base_url)
           .then(function (response) {
-            console.log("response = ", response.url);
             window.location.href = response.url;
-
-            // return response.json();
           })
-          // .then(function (data) {
-          //   console.log("data = ", data);
-          //   window.location.href = "https://mediafiles.squlpt-tech.com/fileLink?url=" + data;
-
-          //   // window.location.href = data;
-          // })
           .catch(function (err) {
             console.log("err = ", err);
           });
@@ -78,7 +58,10 @@
                 await tableau.extensions.initializeAsync();
                 const parameters =
                   await tableau.extensions.dashboardContent.dashboard.getParametersAsync();
-
+                let link =
+                  "http://infolab.stanford.edu/pub/papers/google.pdf#toolbar=0&navpanes=0&scrollbar=0";
+                document.getElementById("pdfid").src =
+                  link + "#toolbar=0&navpanes=0&scrollbar=0";
                 parameters.forEach(function (p) {
                   p.addEventListener(
                     tableau.TableauEventType.ParameterChanged,
@@ -97,34 +80,28 @@
                   //   "p.currentValue.formattedValue = ",
                   //   param.currentValue.formattedValue
                   // );
+                  console.log("param = ", param);
 
                   if (
                     param.name === "PhotoS3URL" &&
                     param.currentValue.formattedValue
                   ) {
-                    // var x = document.getElementById("myDIV");
-                    // if (x.style.display === "none") {
-                    //   x.style.display = "block";
-                    // } 
-                    //   let link =
-                    //   "https://mediafiles.squlpt-tech.com/imageLink?url=https://www.kindacode.com/wp-content/uploads/2021/01/test.jpg&key=mOYna0HFMgMg3tc";
-                    // window.location.href = link;
                     let link = `https://mediafiles.squlpt-tech.com/fileUpload?key=mOYna0HFMgMg3tc&url=${param.currentValue.formattedValue}`;
                     // let link = `http://localhost:3000/fileUpload?key=mOYna0HFMgMg3tc&url=${param.currentValue.formattedValue}`;
-
-                    // console.log("link = ", link);
-                    // window.location.href = link;
                     document.getElementById("imageid").src = link;
-                  } else if (param.name !== "PhotoS3URL") {
-                    // console.log("do nothing");
-                    document.getElementById("imageid").src = link;
-                    // var x = document.getElementById("myDIV");
-                    // if (x.style.display === "none") {
-                    //   x.style.display = "block";
-                    // } else {
-                    //   x.style.display = "none";
-                    // }
+                  } else if (
+                    param.name === "MedHistS3URL" &&
+                    param.currentValue.formattedValue
+                  ) {
+                    let link = `https://mediafiles.squlpt-tech.com/fileUpload?key=mOYna0HFMgMg3tc&url=${param.currentValue.formattedValue}`;
+                    // let link = `http://localhost:3000/fileUpload?key=mOYna0HFMgMg3tc&url=${param.currentValue.formattedValue}`;
+                    document.getElementById("pdfid").src =
+                      link + "#toolbar=0&navpanes=0&scrollbar=0";
                   }
+                  // else if (param.name !== "PhotoS3URL") {
+                  //   // console.log("do nothing");
+                  //   document.getElementById("imageid").src = link;
+                  // }
                 });
               }
             }
@@ -138,40 +115,18 @@
     </script>
   </head>
   <body>
-    <!-- <div class="container">
-      <div id="settings">
-        <h4>Please insert S3 image link</h4>
-      </div>
-      <div id="newSetting">
-        <hr />
-        <form id="settingForm">
-          <div class="form-group">
-            <input
-              id="keyInput"
-              type="text"
-              class="form-control"
-              placeholder="Image s3 url"
-            />
-          </div>
-          <button
-            id="save"
-            type="button"
-            class="btn btn-primary"
-            onClick="getImage()"
-          >
-            Load Image
-          </button>
-        </form>
-      </div>
-    </div> -->
     <div id="imagediv" oncontextmenu="return false;">
       <img id="imageid" style="width: 100%; height: auto" />
-      <div style="position:relative; left: 10px; top: -120px;">
+      <!-- <div style="position:relative; left: 10px; top: -120px;">
         <img src="https://squlpt-body-formstack.s3.us-east-2.amazonaws.com/squlpt-watermark.png" width=100 height=50>
-      </div>
+      </div> -->
+    </div>
+    <div id="pdfdiv" oncontextmenu="return false;">
+      <iframe id="pdfid" frameborder="0" width="100%" height="800px"></iframe>
     </div>
   </body>
 </html>
 
-
 <!-- https://squlpt-body-formstack.s3.us-east-2.amazonaws.com/squlpt-watermark.png -->
+
+<!-- src="http://infolab.stanford.edu/pub/papers/google.pdf#toolbar=0&navpanes=0&scrollbar=0" -->

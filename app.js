@@ -23,34 +23,39 @@ app.get("/fileUpload", middleware.authenticated, async (req, res) => {
       // res.sendFile(resp);
       let newSubPath = "/images/" + helper.maketoken(10);
       let newPath = __dirname + newSubPath;
+      if (resp.indexOf(".pdf") != -1) {
+        // It is a pdf
+        res.sendFile(resp);
 
-      compress_images(
-        resp,
-        newPath,
-        { compress_force: false, statistic: true, autoupdate: true },
-        false,
-        { jpg: { engine: "mozjpeg", command: ["-quality", "60"] } },
-        { png: { engine: "pngquant", command: ["--quality=20-50", "-o"] } },
-        { svg: { engine: "svgo", command: "--multipass" } },
-        {
-          gif: {
-            engine: "gifsicle",
-            command: ["--colors", "64", "--use-col=web"],
+      } else {
+        compress_images(
+          resp,
+          newPath,
+          { compress_force: false, statistic: true, autoupdate: true },
+          false,
+          { jpg: { engine: "mozjpeg", command: ["-quality", "60"] } },
+          { png: { engine: "pngquant", command: ["--quality=20-50", "-o"] } },
+          { svg: { engine: "svgo", command: "--multipass" } },
+          {
+            gif: {
+              engine: "gifsicle",
+              command: ["--colors", "64", "--use-col=web"],
+            },
           },
-        },
-        function (error, completed, statistic) {
-          console.log("-------------");
-          console.log(error);
-          console.log(completed);
-          console.log(statistic);
-          console.log("-------------");
-          if (error) {
-            res.sendFile(resp);
-          } else {
-            res.sendFile(statistic.path_out_new);
+          function (error, completed, statistic) {
+            console.log("-------------");
+            console.log(error);
+            console.log(completed);
+            console.log(statistic);
+            console.log("-------------");
+            if (error) {
+              res.sendFile(resp);
+            } else {
+              res.sendFile(statistic.path_out_new);
+            }
           }
-        }
-      );
+        );
+      }
     })
     .catch((err) => {
       res.status(400).json({ error: err });
