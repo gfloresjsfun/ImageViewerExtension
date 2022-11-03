@@ -52,16 +52,10 @@
                 this._$ = _$;
               }
               async initialize() {
-                // console.log("Waiting for DOM ready");
                 await this._$.ready;
-                // console.log("Initializing extension API");
                 await tableau.extensions.initializeAsync();
                 const parameters =
                   await tableau.extensions.dashboardContent.dashboard.getParametersAsync();
-                let link =
-                  "http://infolab.stanford.edu/pub/papers/google.pdf#toolbar=0&navpanes=0&scrollbar=0";
-                document.getElementById("pdfid").src =
-                  link + "#toolbar=0&navpanes=0&scrollbar=0";
                 parameters.forEach(function (p) {
                   p.addEventListener(
                     tableau.TableauEventType.ParameterChanged,
@@ -74,34 +68,21 @@
               onParameterChange(parameterChangeEvent) {
                 console.log("parameterChangeEvent = ", parameterChangeEvent);
                 parameterChangeEvent.getParameterAsync().then(function (param) {
-                  // console.log("p.name = ", param.name);
-                  // console.log("p.dataType = ", param.dataType);
-                  // console.log(
-                  //   "p.currentValue.formattedValue = ",
-                  //   param.currentValue.formattedValue
-                  // );
                   console.log("param = ", param);
-
                   if (
                     param.name === "PhotoS3URL" &&
                     param.currentValue.formattedValue
                   ) {
                     let link = `https://mediafiles.squlpt-tech.com/fileUpload?key=mOYna0HFMgMg3tc&url=${param.currentValue.formattedValue}`;
-                    // let link = `http://localhost:3000/fileUpload?key=mOYna0HFMgMg3tc&url=${param.currentValue.formattedValue}`;
                     document.getElementById("imageid").src = link;
                   } else if (
                     param.name === "MedHistS3URL" &&
                     param.currentValue.formattedValue
                   ) {
                     let link = `https://mediafiles.squlpt-tech.com/fileUpload?key=mOYna0HFMgMg3tc&url=${param.currentValue.formattedValue}`;
-                    // let link = `http://localhost:3000/fileUpload?key=mOYna0HFMgMg3tc&url=${param.currentValue.formattedValue}`;
                     document.getElementById("pdfid").src =
                       link + "#toolbar=0&navpanes=0&scrollbar=0";
                   }
-                  // else if (param.name !== "PhotoS3URL") {
-                  //   // console.log("do nothing");
-                  //   document.getElementById("imageid").src = link;
-                  // }
                 });
               }
             }
@@ -117,16 +98,9 @@
   <body>
     <div id="imagediv" oncontextmenu="return false;">
       <img id="imageid" style="width: 100%; height: auto" />
-      <!-- <div style="position:relative; left: 10px; top: -120px;">
-        <img src="https://squlpt-body-formstack.s3.us-east-2.amazonaws.com/squlpt-watermark.png" width=100 height=50>
-      </div> -->
     </div>
     <div id="pdfdiv" oncontextmenu="return false;">
       <iframe id="pdfid" frameborder="0" width="100%" height="800px"></iframe>
     </div>
   </body>
 </html>
-
-<!-- https://squlpt-body-formstack.s3.us-east-2.amazonaws.com/squlpt-watermark.png -->
-
-<!-- src="http://infolab.stanford.edu/pub/papers/google.pdf#toolbar=0&navpanes=0&scrollbar=0" -->
