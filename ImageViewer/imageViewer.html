@@ -75,6 +75,9 @@
                   ) {
                     let link = `https://mediafiles.squlpt-tech.com/fileUpload?key=mOYna0HFMgMg3tc&url=${param.currentValue.formattedValue}`;
                     document.getElementById("imageid").src = link;
+                    document.getElementById("pdfdiv").style.display="none";
+                    document.getElementById("pdfid").src = "";
+
                   } else if (
                     param.name === "MedHistS3URL" &&
                     param.currentValue.formattedValue
@@ -82,6 +85,9 @@
                     let link = `https://mediafiles.squlpt-tech.com/fileUpload?key=mOYna0HFMgMg3tc&url=${param.currentValue.formattedValue}`;
                     document.getElementById("pdfid").src =
                       link + "#toolbar=0&navpanes=0&scrollbar=0";
+                      document.getElementById("imagediv").style.display="none";
+                      document.getElementById("imageid").src = "";
+
                   }
                 });
               }
