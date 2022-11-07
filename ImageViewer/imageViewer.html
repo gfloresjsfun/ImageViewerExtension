@@ -18,7 +18,33 @@
 
     <!-- Extensions Library (this will be hosted on a CDN eventually) -->
     <script src="https://cdn.jsdelivr.net/gh/tableau/extensions-api/lib/tableau.extensions.1.latest.js"></script>
-
+    <style>
+      #imagediv {
+        position: relative;
+        overflow: hidden;
+      }
+      #imagediv img {
+        max-width: 100%;
+      }
+      #imagediv p {
+        position: absolute;
+        top: -105px;
+        left: -105px;
+        right: -140px;
+        font-size: 10px;
+        pointer-events: none;
+        -webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        line-height: 5em;
+        opacity: 0.5;
+        font-weight: bold;
+        z-index: 9999;
+      }
+      #imagediv span {
+        margin-left: 12px;
+        margin-right: 12px;
+      }
+    </style>
     <script>
       (() => {
         "use strict";
@@ -73,7 +99,43 @@
   </head>
   <body>
     <div id="imagediv" oncontextmenu="return false;">
-      <img id="imageid" style="width: 100%; height: auto" />
+      <img
+        id="imageid"
+        style="width: 100%; height: auto"
+      />
+      <p>
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+      </p>
     </div>
+
   </body>
 </html>
