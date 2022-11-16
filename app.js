@@ -175,6 +175,52 @@ app.get("/pdfUpload", middleware.authenticated, async (req, res) => {
     });
 });
 
+app.get("/multipleImages", async (req, res) => {
+  //   res.sendFile('ImageViewer/imageViewer.html');
+  //   res.sendFile('ImageViewer/imageViewer.html', {root: __dirname });
+  //   res.render('ImageViewer/imageViewer.html', {root: __dirname });
+
+  fs.readFile(
+    __dirname + "/ImageViewer/multipleImages.html",
+    "utf8",
+    (err, text) => {
+      res.send(text);
+    }
+  );
+});
+
+app.post("/multiImages",async (req,res)=>{
+  console.log("req.query.images ",req.query.images)
+  req.query.images=req.query.images.split(',');
+    // res.json(req.query.images);
+
+  fileDownload
+  .downloadMultipleFiles(req.query.images, "images")
+  .then((resp) => {
+    console.log("resp = ", resp);
+    // res.sendFile(resp);
+    // let newSubPath = "/images/" + helper.maketoken(10);
+    res.json(resp);
+  })
+  .catch((err) => {
+    console.log(err);
+    // res.status(400).json({ error: err });
+  });
+});
+
+app.get("/multiImagesv2",async (req,res)=>{
+  console.log("req.query.images ",req.query.images)
+  let array=req.query.images.split(',');
+    // res.json(req.query.images);
+  let imagesUrls= [];
+  for (let i=0;i<array.length;i++){
+    let arr=`http://localhost:3000/fileUpload?url=${array[i]}&key=mOYna0HFMgMg3tc`;
+    imagesUrls.push(arr);
+  }
+  res.json(imagesUrls);
+});
+
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Image Viewer</title>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Extensions Library (this will be hosted on a CDN eventually) -->
+    <script src="https://cdn.jsdelivr.net/gh/tableau/extensions-api/lib/tableau.extensions.1.latest.js"></script>
+    <style>
+      #imagediv {
+        position: relative;
+        overflow: hidden;
+      }
+      #imagediv img {
+        max-width: 100%;
+      }
+      #imagediv p {
+        position: absolute;
+        top: -105px;
+        left: -105px;
+        right: -140px;
+        font-size: 10px;
+        pointer-events: none;
+        -webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        line-height: 5em;
+        opacity: 0.5;
+        font-weight: bold;
+        z-index: 9999;
+      }
+      #imagediv span {
+        margin-left: 12px;
+        margin-right: 12px;
+      }
+    </style>
+    <script>
+      (() => {
+        "use strict";
+        var __webpack_exports__ = {};
+        (() => {
+          var exports = __webpack_exports__;
+          var __webpack_unused_export__;
+
+          __webpack_unused_export__ = { value: true };
+          (async () => {
+            class Parameters {
+              constructor(_$) {
+                this._$ = _$;
+              }
+              async initialize() {
+                await this._$.ready;
+                await tableau.extensions.initializeAsync();
+                const parameters =
+                  await tableau.extensions.dashboardContent.dashboard.getParametersAsync();
+                parameters.forEach(function (p) {
+                  p.addEventListener(
+                    tableau.TableauEventType.ParameterChanged,
+                    (event) => {
+                      this.onParameterChange(event);
+                    }
+                  );
+                }, this);
+              }
+              onParameterChange(parameterChangeEvent) {
+                console.log("parameterChangeEvent = ", parameterChangeEvent);
+                parameterChangeEvent.getParameterAsync().then(function (param) {
+                  console.log("param = ", param);
+                  console.log("param.name = ", param.name);
+                  if (
+                    param.name === "PhotoS3URL" &&
+                    param.currentValue.formattedValue
+                  ) {
+                    let link = `https://mediafiles.squlpt-tech.com/fileUpload?key=mOYna0HFMgMg3tc&url=${param.currentValue.formattedValue}`;
+                    document.getElementById("imageid").src = link;
+                  }
+                });
+              }
+            }
+            console.log("Initializing Parameters extension.");
+            await new Parameters($).initialize();
+          })();
+        })();
+
+        /******/
+      })();
+    </script>
+    <script>
+      getImage();
+      function getImage() {
+        console.log("get Image called");
+        // var n = document.getElementById("keyInput").value;
+        // http://localhost:3000/fileUpload?url=https://www.kindacode.com/wp-content/uploads/2021/01/test.jpg&key=mOYna0HFMgMg3tc
+        var base_url =
+          "http://localhost:3000/multiImagesv2?images=https://www.kindacode.com/wp-content/uploads/2021/01/test.jpg,https://www.kindacode.com/wp-content/uploads/2021/01/test.jpg,https://www.kindacode.com/wp-content/uploads/2021/01/test.jpg";
+        fetch(base_url)
+          .then(function (response) {
+            console.log("response = ", response);
+            return response.json();
+          })
+          .then(function (data) {
+            console.log("data = ", data);
+            var div = document.getElementById("imagediv");
+
+            div.innerHTML = ""; // clear images
+
+            for (let counter = 0; counter < data.length; counter++) {
+              var imagem = document.createElement("img");
+              imagem.src = data[counter];
+              imagem.style.css += "width: 100%; height: auto; margin-bottom: 20px;";
+              div.appendChild(imagem);
+            }
+          })
+          .catch(function (err) {
+            console.log("err = ", err);
+          });
+      }
+    </script>
+  </head>
+  <body>
+    <div id="imagediv" oncontextmenu="return false;">
+      <!-- <img id="imageid" style="width: 100%; height: auto" /> -->
+    </div>
+  </body>
+</html>
