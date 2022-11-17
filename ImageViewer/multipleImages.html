@@ -19,14 +19,14 @@
     <!-- Extensions Library (this will be hosted on a CDN eventually) -->
     <script src="https://cdn.jsdelivr.net/gh/tableau/extensions-api/lib/tableau.extensions.1.latest.js"></script>
     <style>
-      #imagediv {
+      .imagediv {
         position: relative;
         overflow: hidden;
       }
-      #imagediv img {
+      .imagediv img {
         max-width: 100%;
       }
-      #imagediv p {
+      .imagediv p {
         position: absolute;
         width: 1100px;
         top: -400px;
@@ -41,7 +41,7 @@
         font-weight: bold;
         z-index: 9999;
       }
-      #imagediv span {
+      .imagediv span {
         margin-left: 12px;
         margin-right: 12px;
       }
@@ -63,6 +63,7 @@
               async initialize() {
                 await this._$.ready;
                 await tableau.extensions.initializeAsync();
+                getImage();
                 const parameters =
                   await tableau.extensions.dashboardContent.dashboard.getParametersAsync();
                 parameters.forEach(function (p) {
@@ -86,9 +87,76 @@
                     let link = `https://mediafiles.squlpt-tech.com/fileUpload?key=mOYna0HFMgMg3tc&url=${param.currentValue.formattedValue}`;
                     document.getElementById("imageid").src = link;
                   }
+
+                  // if ()
                 });
               }
             }
+            function getImage() {
+              console.log("get Image called");
+              var base_url =
+                "http://localhost:3000/multiImagesv2?images=https://www.kindacode.com/wp-content/uploads/2021/01/test.jpg,https://www.kindacode.com/wp-content/uploads/2021/01/test.jpg,https://www.kindacode.com/wp-content/uploads/2021/01/test.jpg";
+              fetch(base_url)
+                .then(function (response) {
+                  console.log("response = ", response);
+                  return response.json();
+                })
+                .then(function (data) {
+                  console.log("data = ", data);
+                  // div.innerHTML = ""; // clear images
+                  var div = document.getElementById("container");
+                  div.innerHTML = ""; // clear images
+
+                  for (let counter = 0; counter < data.length; counter++) {
+                    div.innerHTML += `<div class='imagediv'>
+                <img id="imageid" style="width: 100%; height: auto" src="${data[counter]}" /> 
+                <p><span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br /></p></div>`;
+                  }
+                })
+                .catch(function (err) {
+                  console.log("err = ", err);
+                });
+            }
+
             console.log("Initializing Parameters extension.");
             await new Parameters($).initialize();
           })();
@@ -97,87 +165,8 @@
         /******/
       })();
     </script>
-    <script>
-      getImage();
-      function getImage() {
-        console.log("get Image called");
-        // var n = document.getElementById("keyInput").value;
-        // http://localhost:3000/fileUpload?url=https://www.kindacode.com/wp-content/uploads/2021/01/test.jpg&key=mOYna0HFMgMg3tc
-        var base_url =
-          "http://localhost:3000/multiImagesv2?images=https://www.kindacode.com/wp-content/uploads/2021/01/test.jpg,https://www.kindacode.com/wp-content/uploads/2021/01/test.jpg,https://www.kindacode.com/wp-content/uploads/2021/01/test.jpg";
-        fetch(base_url)
-          .then(function (response) {
-            console.log("response = ", response);
-            return response.json();
-          })
-          .then(function (data) {
-            console.log("data = ", data);
-            var div = document.getElementById("imagediv");
-
-            div.innerHTML = ""; // clear images
-
-            for (let counter = 0; counter < data.length; counter++) {
-              var imagem = document.createElement("img");
-              imagem.src = data[counter];
-              imagem.style.css +=
-                "width: 100%; height: auto; margin-bottom: 20px;";
-              var p2 = document.createElement("p");
-              // var newP = document.createElement("p"); 
-	            // var textNode = document.createTextNode(" This is a new text node"); 
-	            // newP.appendChild(textNode);
-              p2.innerHTML = `<span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
-        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
-        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
-        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
-        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
-        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
-        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
-        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
-        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
-        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
-        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
-        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
-        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
-        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
-        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
-        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
-        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
-        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
-        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
-        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
-        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
-        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
-        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
-        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
-        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
-        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
-        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
-        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
-        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
-        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
-        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
-        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
-        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
-        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
-        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
-        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
-        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
-        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
-        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
-        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />`;
-              imagem.appendChild(p2);
-              div.appendChild(imagem);
-            }
-          })
-          .catch(function (err) {
-            console.log("err = ", err);
-          });
-      }
-    </script>
   </head>
   <body>
-    <div id="imagediv" oncontextmenu="return false;">
-      <!-- <img id="imageid" style="width: 100%; height: auto" /> -->
-    </div>
+    <div id="container" oncontextmenu="return false;"></div>
   </body>
 </html>

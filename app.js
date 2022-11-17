@@ -189,7 +189,7 @@ app.get("/multipleImages", async (req, res) => {
   );
 });
 
-app.post("/multiImages",async (req,res)=>{
+app.post("/multiImagesv1",async (req,res)=>{
   console.log("req.query.images ",req.query.images)
   req.query.images=req.query.images.split(',');
     // res.json(req.query.images);
@@ -208,7 +208,7 @@ app.post("/multiImages",async (req,res)=>{
   });
 });
 
-app.get("/multiImagesv2",async (req,res)=>{
+app.get("/multipleImages",async (req,res)=>{
   console.log("req.query.images ",req.query.images)
   let array=req.query.images.split(',');
     // res.json(req.query.images);
