@@ -63,7 +63,7 @@
               async initialize() {
                 await this._$.ready;
                 await tableau.extensions.initializeAsync();
-                getImage();
+                // getImage();
                 const parameters =
                   await tableau.extensions.dashboardContent.dashboard.getParametersAsync();
                 parameters.forEach(function (p) {
@@ -84,8 +84,10 @@
                     param.name === "PhotoS3URL" &&
                     param.currentValue.formattedValue
                   ) {
-                    let link = `https://mediafiles.squlpt-tech.com/fileUpload?key=mOYna0HFMgMg3tc&url=${param.currentValue.formattedValue}`;
-                    document.getElementById("imageid").src = link;
+                    // let link = `https://mediafiles.squlpt-tech.com/fileUpload?key=mOYna0HFMgMg3tc&url=${param.currentValue.formattedValue}`;
+                    // document.getElementById("imageid").src = link;
+                    getImage();
+
                   }
 
                   // if ()
@@ -95,7 +97,7 @@
             function getImage() {
               console.log("get Image called");
               var base_url =
-                "http://localhost:3000/multiImagesv2?images=https://www.kindacode.com/wp-content/uploads/2021/01/test.jpg,https://www.kindacode.com/wp-content/uploads/2021/01/test.jpg,https://www.kindacode.com/wp-content/uploads/2021/01/test.jpg";
+                "https://mediafiles.squlpt-tech.com/multipleImagesAPI?images=https://www.kindacode.com/wp-content/uploads/2021/01/test.jpg,https://www.kindacode.com/wp-content/uploads/2021/01/test.jpg,https://www.kindacode.com/wp-content/uploads/2021/01/test.jpg";
               fetch(base_url)
                 .then(function (response) {
                   console.log("response = ", response);

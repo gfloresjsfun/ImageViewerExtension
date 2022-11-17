@@ -208,7 +208,7 @@ app.post("/multiImagesv1",async (req,res)=>{
   });
 });
 
-app.get("/multipleImages",async (req,res)=>{
+app.get("/multipleImagesAPI",async (req,res)=>{
   console.log("req.query.images ",req.query.images)
   let array=req.query.images.split(',');
     // res.json(req.query.images);
