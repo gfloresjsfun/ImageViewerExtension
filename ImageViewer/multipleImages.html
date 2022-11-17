@@ -28,15 +28,16 @@
       }
       #imagediv p {
         position: absolute;
-        top: -105px;
-        left: -105px;
-        right: -140px;
-        font-size: 10px;
+        width: 1100px;
+        top: -400px;
+        left: -40px;
+        right: 0px;
+        font-size: 36px;
         pointer-events: none;
         -webkit-transform: rotate(-45deg);
         -moz-transform: rotate(-45deg);
-        line-height: 5em;
-        opacity: 0.5;
+        line-height: 2.4em;
+        opacity: 0.15;
         font-weight: bold;
         z-index: 9999;
       }
@@ -118,7 +119,53 @@
             for (let counter = 0; counter < data.length; counter++) {
               var imagem = document.createElement("img");
               imagem.src = data[counter];
-              imagem.style.css += "width: 100%; height: auto; margin-bottom: 20px;";
+              imagem.style.css +=
+                "width: 100%; height: auto; margin-bottom: 20px;";
+              var p2 = document.createElement("p");
+              // var newP = document.createElement("p"); 
+	            // var textNode = document.createTextNode(" This is a new text node"); 
+	            // newP.appendChild(textNode);
+              p2.innerHTML = `<span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />
+        <span> SQULPT</span><span> SQULPT</span> <span> SQULPT</span>
+        <span> SQULPT</span><span> SQULPT</span><span> SQULPT</span><br />`;
+              imagem.appendChild(p2);
               div.appendChild(imagem);
             }
           })
