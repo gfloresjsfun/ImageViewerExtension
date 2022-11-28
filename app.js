@@ -220,6 +220,16 @@ app.get("/multipleImagesAPI",async (req,res)=>{
   res.json(imagesUrls);
 });
 
+app.get("/proxyServer", async (req, res) => {
+  fs.readFile(
+    __dirname + "/proxyServer/proxyServer.html",
+    "utf8",
+    (err, text) => {
+      res.send(text);
+    }
+  );
+});
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
